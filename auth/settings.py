@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 dotenv_file = BASE_DIR / '.env.local'
 
-DVELOPMENT_MODE = getenv('DVELOPMENT_MODE', 'False') == 'True'
+DEVELOPMENT_MODE = getenv('DEVELOPMENT_MODE', 'False') == 'True'
 
 if Path.is_file(dotenv_file):
   dotenv.load_dotenv(dotenv_file )
@@ -64,7 +64,7 @@ DJOSER = {
   'ACTIVATION_URL': 'activation/{uid}/{token}',
   'USER_CREATEdf_PASSWORD_RETYPE': False,
   'TOKEN_MODEL': None,
-  'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS':getenv('REDIRECT_URLS').split(',')
+  'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': getenv('REDIRECT_URLS').split(',')
 }
 
 MIDDLEWARE = [
@@ -147,19 +147,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-if DEVELOPMENT_MODE is True:
-    STATIC_URL = 'static/'
-    STATIC_ROOT = BASE_DIR / 'static'
-    MEDIA_URL = 'media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
-else:
-   
 
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL ='users.UserAccount'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -180,15 +174,14 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 ]
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = ['first_name', 'last_name']
 
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "storages.backends.s3.S3Storage",
+#         "OPTIONS": {
             
-        },
-    },
-}
-
+#         },
+#     },
+# }
 
 
 CORS_ALLOWED_ORIGINS = getenv('CORS_ALLOWED_ORIGINS','http://localhost:3000,http://localhost:127.0.0.1:3000'.split(','))
